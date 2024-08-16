@@ -70,7 +70,7 @@ colnames(sim.D) = c('D', 'test_type')
 head(sim.D)
 
 idplot <- sim.D %>%
-  ggplot(aes(x = D, fill = test_type, color = test_type)) +
+  ggplot(aes(x = D, fill = test_type)) +
   geom_histogram(bins = 10, alpha = 0.4, linewidth = 1.0) +
   geom_vline(xintercept = id.test.ecospat$test.results$obs$D, color = 'black', linewidth = 1.0, linetype = 'longdash') +
   scale_fill_manual(values = 'cornflowerblue') +
@@ -96,7 +96,7 @@ colnames(bg.D) = c('D', 'test_type')
 head(bg.D)
 
 bgplot <- bg.D %>%
-  ggplot(aes(x = D, fill = test_type, color = test_type)) +
+  ggplot(aes(x = D, fill = test_type)) +
   geom_histogram(bins = 10, alpha = 0.4, linewidth = 1.0) +
   geom_vline(xintercept = bg.test.ecospat$test.results$obs$D, color = 'black', linewidth = 1.0, linetype = 'longdash') +
   scale_fill_manual(values = 'salmon') +
