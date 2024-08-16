@@ -7,6 +7,9 @@ gc()
 # load packages
 library(ENMTools)
 library(terra)
+library(ggplot2)
+library(ggpubr)
+library(dplyr)
 
 ##### setup data ----------
 
@@ -55,4 +58,65 @@ print(bg.test.ecospat)
 # save results
 #saveRDS(bg.test.ecospat, 'output_niche_anlyses_rds/bg.test.ecospat.rds')
 
-##### plot results----------
+
+##### plot results ----------
+
+# id test
+print(id.test.ecospat$test.results$sim$D)
+
+sim.D <- as.data.frame(id.test.ecospat$test.results$sim$D)
+sim.D$test_type = 'identity'
+colnames(sim.D) = c('D', 'test_type')
+head(sim.D)
+
+idplot <- sim.D %>%
+  ggplot(aes(x = D, fill = test_type, color = test_type)) +
+  geom_histogram(bins = 10, alpha = 0.4, linewidth = 1.0) +
+  geom_vline(xintercept = id.test.ecospat$test.results$obs$D, color = 'black', linewidth = 1.0, linetype = 'longdash') +
+  scale_fill_manual(values = 'cornflowerblue') +
+  scale_color_manual(values = 'cornflowerblue') +
+  xlab("Schoener's D") + ylab('Count') +
+  theme(legend.position = 'none',
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14),
+        strip.text = element_text(size = 14),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14, face = 'bold'),
+        axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 20)),
+        plot.margin = margin(l = 15, r = 15)) 
+
+
+# bg test
+print(bg.test.ecospat$test.results$sim$D)
+
+bg.D <- as.data.frame(bg.test.ecospat$test.results$sim$D)
+bg.D$test_type = 'background'
+colnames(bg.D) = c('D', 'test_type')
+head(bg.D)
+
+bgplot <- bg.D %>%
+  ggplot(aes(x = D, fill = test_type, color = test_type)) +
+  geom_histogram(bins = 10, alpha = 0.4, linewidth = 1.0) +
+  geom_vline(xintercept = bg.test.ecospat$test.results$obs$D, color = 'black', linewidth = 1.0, linetype = 'longdash') +
+  scale_fill_manual(values = 'salmon') +
+  scale_color_manual(values = 'salmon') +
+  xlab("Schoener's D") + ylab('Count') +
+  theme(legend.position = 'none',
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14),
+        strip.text = element_text(size = 14),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14, face = 'bold'),
+        axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 20)),
+        plot.margin = margin(l = 15, r = 15)) 
+
+
+# merge plots
+ggarrange(idplot, bgplot,
+          font.label = list(size = 18),
+          labels = c('A)', 'B)'),
+          nrow = 1, ncol = 2)
+
+ggsave('plots/niche_analyses_Espace.png', width = 20, height = 10, dpi = 800, units = 'cm')
