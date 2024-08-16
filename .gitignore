@@ -48,8 +48,8 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
-<<<<<<< HEAD
-output_niche_anlyses_rds/
-=======
->>>>>>> 08456382917ad55e4420adbd21882f09fe211563
+#<<<<<<< HEAD
+#output_niche_anlyses_rds/
+#=======
+#>>>>>>> 08456382917ad55e4420adbd21882f09fe211563
 

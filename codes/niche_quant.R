@@ -42,6 +42,9 @@ id.test.ecospat <- enmtools.ecospat.id(species.1 = green, species.2 = yellow, en
 
 print(id.test.ecospat)
 
+# save results
+#saveRDS(id.test.ecospat, 'output_niche_anlyses_rds/id.test.ecospat.rds')
+
 
 ##### background test ----------
 bg.test.ecospat <- enmtools.ecospat.bg(species.1 = green, species.2 = yellow, env = envs, nreps = 1000,test.type = 'symmetric', 
@@ -49,5 +52,7 @@ bg.test.ecospat <- enmtools.ecospat.bg(species.1 = green, species.2 = yellow, en
 
 print(bg.test.ecospat)
 
+# save results
+#saveRDS(bg.test.ecospat, 'output_niche_anlyses_rds/bg.test.ecospat.rds')
 
 ##### plot results----------
